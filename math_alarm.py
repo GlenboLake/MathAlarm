@@ -65,13 +65,21 @@ class Application(tkinter.Frame):
         correct = self.user_answer.get() == self.solution
         print(correct)
         if correct:
-            self.new_problem()
-            self.user_answer.delete(0, tkinter.END)
+            self.problems_remaining -= 1
+            if self.problems_remaining == 0:
+                self.master.destroy()
+            else:
+                self.new_problem()
+                self.user_answer.delete(0, tkinter.END)
 
+
+def prevent_close():
+    pass
 
 if __name__ == '__main__':
     root = tkinter.Tk()
     root.title('Do math')
     root.minsize(400, 300)
+    root.protocol("WM_DELETE_WINDOW", prevent_close)
     app = Application(root)
     app.mainloop()
