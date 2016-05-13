@@ -17,18 +17,26 @@ class Application(tkinter.Frame):
         self.solution = None
         self.new_problem()
         # Create widgets
+        # Problem countdown label
         self.counter = tkinter.Label(self, textvariable=self.remaining_text)
         self.counter.pack()
+        # Text box for math problems
         self.problem = tkinter.Label(self, textvariable=self.equation, font=('Helvetica', 20))
         self.problem.pack(padx=20, pady=20, fill=tkinter.BOTH)
+        # Frame containing answer box and submit button
         self.submission = tkinter.Frame(self)
         self.submission.pack()
+        # User's submission area
         self.user_answer = tkinter.Entry(self.submission)
+        self.user_answer.bind('<Return>', self.ret)
         self.user_answer.pack(side='left')
+        # Submit button
         self.submit = tkinter.Button(self.submission)
         self.submit["text"] = "Submit"
         self.submit["command"] = self.check_answer
         self.submit.pack(side='left')
+        # Text entry field should start with focus
+        self.user_answer.focus()
 
     def new_problem(self):
         equation = ''
@@ -48,6 +56,9 @@ class Application(tkinter.Frame):
                 break
         self.equation.set(equation)
         self.solution = str(eval(equation))
+
+    def ret(self, _):
+        self.check_answer()
 
     def check_answer(self):
         print('In thread {}'.format(threading.get_ident()))
