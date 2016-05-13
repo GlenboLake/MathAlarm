@@ -63,5 +63,4 @@ if __name__ == '__main__':
     root.title('Do math')
     root.minsize(400, 300)
     app = Application(root)
-    print('Main thread ' + str(threading.get_ident()))
     app.mainloop()
