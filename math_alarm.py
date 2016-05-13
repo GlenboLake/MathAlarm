@@ -71,6 +71,7 @@ class Application(tkinter.Frame):
             else:
                 self.new_problem()
                 self.user_answer.delete(0, tkinter.END)
+                self.remaining_text.set('Problems left: {}'.format(self.problems_remaining))
 
 
 def prevent_close():
